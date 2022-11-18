@@ -1,8 +1,6 @@
 package frontend;
 
 
-import backend.Square;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;

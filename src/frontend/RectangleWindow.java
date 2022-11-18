@@ -1,7 +1,7 @@
 package frontend;
 
 
-import backend.Rectangle;
+import backend.drawableshapes.Rectangle;
 
 import javax.swing.*;
 import java.awt.*;

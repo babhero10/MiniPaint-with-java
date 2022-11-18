@@ -1,7 +1,7 @@
 package frontend;
 
 
-import backend.Circle;
+import backend.drawableshapes.Circle;
 
 import javax.swing.*;
 import java.awt.*;

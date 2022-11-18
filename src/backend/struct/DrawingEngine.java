@@ -1,4 +1,4 @@
-package backend;
+package backend.struct;
 
 
 import java.awt.*;

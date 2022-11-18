@@ -1,8 +1,10 @@
 package frontend;
 
-import backend.*;
-import backend.Rectangle;
-import backend.Shape;
+import backend.drawableshapes.Circle;
+import backend.drawableshapes.LineSegment;
+import backend.drawableshapes.Rectangle;
+import backend.struct.Shape;
+import backend.struct.DrawingEngine;
 
 import javax.swing.*;
 import java.awt.*;

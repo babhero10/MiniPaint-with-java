@@ -1,7 +1,7 @@
 package frontend;
 
 
-import backend.LineSegment;
+import backend.drawableshapes.LineSegment;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
