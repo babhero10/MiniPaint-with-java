@@ -2,6 +2,7 @@ package frontend;
 
 
 import backend.drawableshapes.Rectangle;
+import backend.errors.InvalidName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class RectangleWindow extends JDialog {
 
     private final Engine engine;
-    private final JTextField xPosField, yPosField, widthField, heightField;
+    private final JTextField nameField, xPosField, yPosField, widthField, heightField;
 
     private final Rectangle rectangle;
 
@@ -23,7 +24,10 @@ public class RectangleWindow extends JDialog {
         rectangle = new Rectangle();
 
         this.setLayout(null);
-        this.setSize(500, 525);
+        this.setSize(500, 580);
+
+        JLabel shapeNameLabel = new JLabel("Shape name");
+        nameField = new JTextField();
 
         JLabel xPosLabel = new JLabel("X position");
         xPosField = new JTextField();
@@ -45,25 +49,28 @@ public class RectangleWindow extends JDialog {
 
         JButton drawBtn = new JButton("Draw");
 
-        xPosLabel.setBounds(50, 50, 100, 50);
-        xPosField.setBounds(150, 50, 250, 50);
+        shapeNameLabel.setBounds(50, 50, 100, 50);
+        nameField.setBounds(150, 50, 250, 50);
 
-        yPosLabel.setBounds(50, 50*2, 100, 50);
-        yPosField.setBounds(150, 50*2, 250, 50);
+        xPosLabel.setBounds(50, 50*2, 100, 50);
+        xPosField.setBounds(150, 50*2, 250, 50);
 
-        widthLabel.setBounds(50, 50*3, 100, 50);
-        widthField.setBounds(150, 50*3 , 250, 50);
+        yPosLabel.setBounds(50, 50*3, 100, 50);
+        yPosField.setBounds(150, 50*3, 250, 50);
 
-        heightLabel.setBounds(50, 50*4, 100, 50);
-        heightField.setBounds(150, 50*4 , 250, 50);
+        widthLabel.setBounds(50, 50*4, 100, 50);
+        widthField.setBounds(150, 50*4 , 250, 50);
 
-        colorBtn.setBounds(150, 50*5 + 20, 100, 50);
-        colorLabel.setBounds(260, 50*5 + 20, 125, 50);
+        heightLabel.setBounds(50, 50*5, 100, 50);
+        heightField.setBounds(150, 50*5 , 250, 50);
 
-        fillColorBtn.setBounds(150, 50*6 + 20, 100, 50);
-        fillColorLabel.setBounds(260, 50*6 + 20, 125, 50);
+        colorBtn.setBounds(150, 50*6 + 20, 100, 50);
+        colorLabel.setBounds(260, 50*6 + 20, 125, 50);
 
-        drawBtn.setBounds(225,50*7 + 50,100,50);
+        fillColorBtn.setBounds(150, 50*7 + 20, 100, 50);
+        fillColorLabel.setBounds(260, 50*7 + 20, 125, 50);
+
+        drawBtn.setBounds(225,50*8 + 50,100,50);
 
         colorBtn.setFocusable(false);
         colorBtn.addActionListener(e -> setColor());
@@ -78,6 +85,8 @@ public class RectangleWindow extends JDialog {
         fillColorLabel.setOpaque(true);
         fillColorLabel.setBackground(Color.BLACK);
 
+        this.add(shapeNameLabel);
+        this.add(nameField);
         this.add(xPosLabel);
         this.add(xPosField);
         this.add(yPosLabel);
@@ -113,27 +122,36 @@ public class RectangleWindow extends JDialog {
 
     public void draw() {
         int x, y;
-        double width, height;
+        int width, height;
 
         try {
             x = Integer.parseInt(xPosField.getText());
             y = Integer.parseInt(yPosField.getText());
-            width = Double.parseDouble(widthField.getText());
-            height = Double.parseDouble(heightField.getText());
+            width = Integer.parseInt(widthField.getText());
+            height = Integer.parseInt(heightField.getText());
 
-            Map<String, Double> p = new HashMap<>();
-            p.put("width", width);
-            p.put("height", height);
+            if (nameField.getText().trim().equals(""))
+                throw new NumberFormatException();
+
+            engine.checkShapeName(nameField.getText());
+
+            Map<String, String> p = new HashMap<>();
+            p.put("name", nameField.getText());
             rectangle.setProperties(p);
             rectangle.setPosition(new Point(x, y));
+            rectangle.setWidth(width);
+            rectangle.setHeight(height);
             engine.addShape(rectangle);
 
-            this.dispose();
             engine.refresh(engine.getGraphics());
+            this.dispose();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid data", "Failed!",
                                     JOptionPane.WARNING_MESSAGE);
+        } catch (InvalidName e) {
+            JOptionPane.showMessageDialog(null, "Name is already been used", "Invalid name!",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 

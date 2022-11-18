@@ -78,10 +78,7 @@ public class MainFrame {
         Engine e = (Engine) drawingPanel;
         e.removeShape(e.getShapes()[shapesComb.getSelectedIndex()]);
         e.refreshComboBox(shapesComb);
-
-
         e.refresh(drawingPanel.getGraphics());
-        drawingPanel.paint(drawingPanel.getGraphics());
     }
 
     void changeColor() {

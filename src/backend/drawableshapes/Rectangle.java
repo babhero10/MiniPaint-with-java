@@ -35,7 +35,7 @@ public class Rectangle extends Shape {
     @Override
     public void draw(Graphics canvas) {
 
-        ((Graphics2D) canvas).setStroke(new BasicStroke(5));
+        ((Graphics2D) canvas).setStroke(new BasicStroke(DEF_STROKE_SIZE));
         canvas.setColor(getColor());
         canvas.drawRect(getPosition().x, getPosition().y, width, height);
         canvas.setColor(getFillColor());

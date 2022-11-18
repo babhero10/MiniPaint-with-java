@@ -21,18 +21,14 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void setPosition(Point position) {
-        setPosition(position);
-        getPosition().x = (position.x - getRadius());
-        getPosition().y = (position.y - getRadius());
-    }
-
-    @Override
     public void draw(Graphics canvas) {
         ((Graphics2D) canvas).setStroke(new BasicStroke(DEF_STROKE_SIZE));
         canvas.setColor(getColor());
-        canvas.drawOval(getPosition().x, getPosition().y, (getRadius() * 2), (getRadius() * 2));
+
+        canvas.drawOval(getPosition().x - getRadius(), getPosition().y - getRadius(),
+                        (getRadius() * 2), (getRadius() * 2));
         canvas.setColor(getFillColor());
-        canvas.fillOval(getPosition().x, getPosition().y, (getRadius() * 2), (getRadius() * 2));
+        canvas.fillOval(getPosition().x - getRadius(), getPosition().y - getRadius(),
+                        (getRadius() * 2), (getRadius() * 2));
     }
 }

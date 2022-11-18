@@ -1,8 +1,6 @@
 package frontend;
 
-import backend.drawableshapes.Circle;
-import backend.drawableshapes.LineSegment;
-import backend.drawableshapes.Rectangle;
+import backend.errors.InvalidName;
 import backend.struct.Shape;
 import backend.struct.DrawingEngine;
 
@@ -24,16 +22,20 @@ public class Engine extends JPanel implements DrawingEngine {
     }
 
     public void refreshComboBox(JComboBox comboBox) {
-        comboBox.removeAllItems();
-        String shapeType = "";
-        Shape[] shapes = getShapes();
-        for (int i = 0; i < shapes.length; i++) {
+        if (comboBox == null) return;
 
-            if (shapes[i] instanceof Circle) shapeType = "Circle";
-            else if (shapes[i] instanceof LineSegment) shapeType = "Line Segment";
-            else if (shapes[i] instanceof Rectangle) shapeType = "Rectangle";
-            else if (shapes[i] instanceof Square) shapeType = "Square";
-            comboBox.addItem(shapeType+(i+1));
+        comboBox.removeAllItems();
+        Shape[] shapes = getShapes();
+        for (Shape shape : shapes) {
+            comboBox.addItem(shape.getProperties().get("name"));
+        }
+    }
+
+    public void checkShapeName(String shapeName) throws InvalidName {
+        for (Shape s : getShapes()) {
+            if (s.getProperties().get("name").equals(shapeName)) {
+                throw new InvalidName();
+            }
         }
     }
 
