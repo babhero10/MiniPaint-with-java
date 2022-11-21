@@ -6,45 +6,47 @@ import backend.struct.Shape;
 import java.awt.*;
 import java.util.HashMap;
 
-import static backend.constants.Properties.SET_FILL_KEY;
 
-public class DrawingShape extends OtherShape {
-    private
+public class TextShape extends OtherShape {
 
-    public DrawingShape() {
+    private String text;
+    private int textSize;
+
+    public TextShape() {
         super();
-        getProperties().put(SET_FILL_KEY, "false");
+        setTextSize(15);
     }
 
-    public Point getEndPoint() {
-        return endPoint;
+
+    public String getText() {
+        return text;
     }
 
-    public void setEndPoint(Point endPoint) {
-        this.endPoint = endPoint;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    @Override
-    public void setFillColor(Color color) {
-
+    public int getTextSize() {
+        return textSize;
     }
 
-    @Override
-    public Color getFillColor() {
-        return null;
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
     @Override
     public void draw(Graphics canvas) {
         ((Graphics2D)canvas).setStroke(new BasicStroke(DEF_STROKE_SIZE));
+        canvas.setFont(new Font("Monospaced", Font.BOLD, getTextSize()));
         canvas.setColor(getColor());
-        canvas.drawLine(getPosition().x, getPosition().y, getEndPoint().x, getEndPoint().y);
+        canvas.drawString(getText(), getPosition().x + getTextSize(), getPosition().y + getTextSize());
     }
 
     @Override
     public Shape copy(Shape shape) {
-        LineSegment c = new LineSegment();
-        c.setEndPoint(getEndPoint());
+        TextShape c = new TextShape();
+        c.setText(getText());
+        c.setTextSize(getTextSize());
         c.setColor(getColor());
         c.setFillColor(getFillColor());
         c.setPosition((Point) getPosition().clone());

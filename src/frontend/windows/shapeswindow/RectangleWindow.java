@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static backend.struct.Shape.*;
+import static backend.constants.Properties.*;
 
 public class RectangleWindow extends JDialog {
 

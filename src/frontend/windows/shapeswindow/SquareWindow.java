@@ -9,7 +9,7 @@ import backend.drawableshapes.Rectangle;
 import backend.exception.InvalidName;
 import backend.Engine;
 
-import static backend.struct.Shape.*;
+import static backend.constants.Properties.*;
 
 public class SquareWindow extends JDialog {
 

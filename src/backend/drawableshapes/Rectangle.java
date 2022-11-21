@@ -1,11 +1,14 @@
 package backend.drawableshapes;
 
+import backend.struct.NormalShape;
 import backend.struct.Shape;
 
 import java.awt.*;
 import java.util.HashMap;
 
-public class Rectangle extends Shape {
+import static backend.constants.Properties.*;
+
+public class Rectangle extends NormalShape {
 
     private int width;
     private int height;

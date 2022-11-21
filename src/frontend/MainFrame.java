@@ -1,12 +1,9 @@
 package frontend;
 
 import backend.Engine;
-import backend.drawableshapes.LineSegment;
+import backend.struct.OtherShape;
 import frontend.windows.customizing.RenameWindow;
-import frontend.windows.shapeswindow.CircleWindow;
-import frontend.windows.shapeswindow.LineSegmentWindow;
-import frontend.windows.shapeswindow.RectangleWindow;
-import frontend.windows.shapeswindow.SquareWindow;
+import frontend.windows.shapeswindow.*;
 import frontend.windows.customizing.ChangeColor;
 
 import javax.swing.*;
@@ -30,6 +27,7 @@ public class MainFrame {
     private JButton rectangleBtn;
     public JPanel drawingPanel;
     private JButton renameBtn;
+    private JButton textDrawBtn;
     public static JFrame frame;
 
     public MainFrame() {
@@ -42,6 +40,7 @@ public class MainFrame {
         colorizeBtn.setFocusable(false);
         deleteBtn.setFocusable(false);
         renameBtn.setFocusable(false);
+        textDrawBtn.setFocusable(false);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
@@ -88,6 +87,7 @@ public class MainFrame {
         lineSegmentBtn.addActionListener(e -> drawLineSegment());
         rectangleBtn.addActionListener(e -> drawRectangle());
         squareBtn.addActionListener(e -> drawSquare());
+        textDrawBtn.addActionListener(e -> drawText());
 
         deleteBtn.addActionListener(e -> deleteShape());
         colorizeBtn.addActionListener(e -> changeColor());
@@ -148,6 +148,11 @@ public class MainFrame {
         ((Engine) drawingPanel).refreshComboBox(shapesComb);
     }
 
+    private void drawText() {
+        new TextDrawWindow(frame, (Engine) drawingPanel);
+        ((Engine) drawingPanel).refreshComboBox(shapesComb);
+    }
+
     private boolean uncheckSelectedItem() {
         if (shapesComb.getSelectedIndex() <= 0) {
             JOptionPane.showMessageDialog(frame, "Select a Shape!", "Invalid Shape!",
@@ -173,10 +178,9 @@ public class MainFrame {
             return;
         }
 
-
         Engine e = (Engine) drawingPanel;
         int index = shapesComb.getSelectedIndex() - 1;
-        Color[] c = new ChangeColor(frame, e.getShape(index) instanceof LineSegment).
+        Color[] c = new ChangeColor(frame, e.getShape(index) instanceof OtherShape).
                 showDialog(e.getShape(index).getColor(), e.getShape(index).getFillColor());
 
         if (c[0] == null && c[1] == null) return;

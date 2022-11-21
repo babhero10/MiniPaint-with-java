@@ -116,6 +116,12 @@
                       <text value="Rectangle"/>
                     </properties>
                   </component>
+                  <component id="492a9" class="javax.swing.JButton" binding="textDrawBtn">
+                    <constraints/>
+                    <properties>
+                      <text value="Text"/>
+                    </properties>
+                  </component>
                   <hspacer id="2a399">
                     <constraints/>
                   </hspacer>

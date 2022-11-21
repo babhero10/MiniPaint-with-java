@@ -1,11 +1,13 @@
 package backend.drawableshapes;
 
+import backend.struct.NormalShape;
 import backend.struct.Shape;
 
 import java.awt.*;
 import java.util.HashMap;
+import static backend.constants.Properties.*;
 
-public class Circle extends Shape {
+public class Circle extends NormalShape {
 
     private int radius;
     public Circle() {

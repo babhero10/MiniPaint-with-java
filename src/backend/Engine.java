@@ -1,9 +1,13 @@
 package backend;
 
+import backend.constants.FileConfig;
 import backend.exception.InvalidName;
 import backend.struct.DrawingEngine;
 import backend.struct.Pair;
 import backend.struct.Shape;
+
+import static backend.constants.FileConfig.VERSION;
+import static backend.constants.Properties.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +19,6 @@ import java.io.*;
 import java.util.*;
 
 import static backend.constants.FileConfig.SERIAL_VERSION_UID;
-import static backend.struct.Shape.*;
 import static frontend.MainFrame.DEF_TITLE_NAME;
 import static frontend.MainFrame.frame;
 
@@ -23,6 +26,7 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
 
     @Serial
     private static final long serialVersionUID = SERIAL_VERSION_UID;
+    private final String version;
     private String saveFile;
     private String saveFileName;
     private boolean flagRedoRest;
@@ -35,11 +39,12 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
     private final static int MAX_UNDO = 10;
     private final static String CREATE_SHAPE = "Create";
     private final static String DELETE_SHAPE = "Delete";
-    private final static String COLOR_CHANGE_SHAPE = "Color";
+    private final static String CHANGE_PROP = "Prop";
     private final static String RENAME_SHAPE = "Rename";
 
     public Engine() {
         super();
+        version = FileConfig.VERSION;
         saveFile = "";
         saveFileName = DEF_TITLE_NAME;
         flagRedoRest = false;
@@ -97,19 +102,19 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
 
     public void changeColor (Shape shape, Color color, Color fillColor, boolean isBorder, boolean isFill) {
         if (flagRedoRest) redoShapes.clear();
-        addUndo(COLOR_CHANGE_SHAPE, shape.copy(shape));
+        addUndo(CHANGE_PROP, shape.copy(shape));
         if (color != null) shape.setColor(color);
         if (fillColor != null) shape.setFillColor(fillColor);
-        shape.addPropertie(SET_BORDER_KEY, String.valueOf(isBorder));
-        shape.addPropertie(SET_FILL_KEY, String.valueOf(isFill));
+        shape.addProperties(SET_BORDER_KEY, String.valueOf(isBorder));
+        shape.addProperties(SET_FILL_KEY, String.valueOf(isFill));
         flagRedoRest = true;
     }
 
     public void renameShape(Shape shape, String name) {
         if (flagRedoRest) redoShapes.clear();
-        shape.addPropertie(PREV_NAME_KEY, shape.getProperties().get(NAME_KEY));
+        shape.addProperties(PREV_NAME_KEY, shape.getProperties().get(NAME_KEY));
         addUndo(RENAME_SHAPE, shape.copy(shape));
-        shape.addPropertie(NAME_KEY, name);
+        shape.addProperties(NAME_KEY, name);
         flagRedoRest = true;
     }
 
@@ -213,7 +218,7 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
                     renameShape(prevShape, shape.getProperties().get(NAME_KEY));
                 }
                 break;
-            case COLOR_CHANGE_SHAPE:
+            case CHANGE_PROP:
                 if (shape != null) {
                     Shape prevShape = getShape(shape);
                     changeColor(prevShape, shape.getColor(), shape.getFillColor(),
@@ -225,8 +230,8 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
     }
 
     public Boolean saveToFile(JFrame frame) {
+        JFileChooser fileChooser = new JFileChooser();;
         if (saveFile.equals("")) {
-            JFileChooser fileChooser = new JFileChooser();
 
             fileChooser.addChoosableFileFilter(new FileFilter() {
                 @Override
@@ -243,12 +248,10 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
 
             fileChooser.setAcceptAllFileFilterUsed(false);
 
-            if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                saveFile = fileChooser.getSelectedFile().getPath() + ".ser";
-                saveFileName = fileChooser.getSelectedFile().getName().split("\\.")[0];
-            } else {
+            if (fileChooser.showSaveDialog(frame) != JFileChooser.APPROVE_OPTION) {
                 return false;
             }
+            saveFile = fileChooser.getSelectedFile().getPath() + ".ser";
         }
 
 
@@ -258,6 +261,7 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
             out.writeObject(this);
             out.close();
             fileOut.close();
+            saveFileName = fileChooser.getSelectedFile().getName().split("\\.")[0];
             this.refresh(null);
             saveFileName = saveFileName.substring(0, saveFileName.length() - 1);
             if (frame != null) frame.setTitle(saveFileName);
@@ -265,7 +269,7 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
+            saveFile = "";
             JOptionPane.showMessageDialog(frame, "Can't save the file!", "Something went wrong!",
                     JOptionPane.WARNING_MESSAGE);
             return false;
@@ -290,19 +294,31 @@ public class Engine extends JPanel implements DrawingEngine, Serializable {
 
         fileChooser.setAcceptAllFileFilterUsed(false);
 
-        if (fileChooser.showDialog(frame, "Open") == JFileChooser.APPROVE_OPTION) {
-            openFile = fileChooser.getSelectedFile().getPath();
-            saveFileName = fileChooser.getSelectedFile().getName().split("\\.")[0];
-        } else {
+        if (fileChooser.showDialog(frame, "Open") != JFileChooser.APPROVE_OPTION) {
             return;
         }
 
+        openFile = fileChooser.getSelectedFile().getPath();
+
         try {
+            Engine newEngine;
             FileInputStream fileIn = new FileInputStream(openFile);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.copy((Engine) in.readObject());
+            newEngine = (Engine) in.readObject();
             in.close();
             fileIn.close();
+
+            if (newEngine.version == null || !newEngine.version.equals(VERSION)) {
+                JOptionPane.showMessageDialog(frame, "Unmatched Version!", "Failed!",
+                                            JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            openFile = fileChooser.getSelectedFile().getPath();
+            saveFileName = fileChooser.getSelectedFile().getName().split("\\.")[0];
+
+            this.copy(newEngine);
+
             saveFile = openFile;
             if (frame != null) frame.setTitle(saveFileName);
             this.refresh(null);

@@ -1,16 +1,16 @@
 package backend.drawableshapes;
 
+import backend.struct.OtherShape;
 import backend.struct.Shape;
 
 import java.awt.*;
 import java.util.HashMap;
 
-public class LineSegment extends Shape {
+public class LineSegment extends OtherShape {
     private Point endPoint;
 
     public LineSegment() {
         super();
-        getProperties().put(SET_FILL_KEY, "false");
     }
 
     public Point getEndPoint() {
@@ -19,16 +19,6 @@ public class LineSegment extends Shape {
 
     public void setEndPoint(Point endPoint) {
         this.endPoint = endPoint;
-    }
-
-    @Override
-    public void setFillColor(Color color) {
-
-    }
-
-    @Override
-    public Color getFillColor() {
-        return null;
     }
 
     @Override

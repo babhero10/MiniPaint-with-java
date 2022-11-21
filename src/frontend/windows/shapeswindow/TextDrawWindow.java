@@ -1,9 +1,9 @@
 package frontend.windows.shapeswindow;
 
 
-import backend.drawableshapes.Rectangle;
-import backend.exception.InvalidName;
 import backend.Engine;
+import backend.drawableshapes.TextShape;
+import backend.exception.InvalidName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,22 +12,20 @@ import java.util.Map;
 
 import static backend.constants.Properties.*;
 
-public class RectangleWindow extends JDialog {
+public class TextDrawWindow extends JDialog {
 
     private final Engine engine;
-    private final JTextField nameField, xPosField, yPosField, widthField, heightField;
+    private final JTextField nameField, xPosField, yPosField, textField, fontSizeField;
 
-    private final Rectangle rectangle;
+    private final TextShape textShape;
 
-    private final JCheckBox strokeEnableCheck, fillEnableCheck;
+    JLabel colorLabel;
+    JButton colorBtn;
 
-    JLabel fillColorLabel, colorLabel;
-    JButton fillColorBtn, colorBtn;
-
-    public RectangleWindow(JFrame parent, Engine engine) {
-        super(parent, "Rectangle probleties", ModalityType.DOCUMENT_MODAL);
+    public TextDrawWindow(JFrame parent, Engine engine) {
+        super(parent, "Text probleties", ModalityType.DOCUMENT_MODAL);
         this.engine = engine;
-        rectangle = new Rectangle();
+        textShape = new TextShape();
 
         this.setLayout(null);
         this.setSize(500, 580);
@@ -41,27 +39,17 @@ public class RectangleWindow extends JDialog {
         JLabel yPosLabel = new JLabel("Y position");
         yPosField = new JTextField();
 
-        JLabel widthLabel = new JLabel("Width ");
-        widthField = new JTextField();
+        JLabel textLabel = new JLabel("Text ");
+        textField = new JTextField();
 
-        JLabel heightLabel = new JLabel("Height ");
-        heightField = new JTextField();
-
-        colorLabel = new JLabel("  ");
-        colorBtn = new JButton("Stroke");
-
-        fillColorLabel = new JLabel("  ");
-        fillColorBtn = new JButton("Fill");
+        JLabel fontSizeLabel = new JLabel("Font size ");
+        fontSizeField = new JTextField();
 
         colorLabel = new JLabel("  ");
         colorBtn = new JButton("Stroke");
-        strokeEnableCheck = new JCheckBox("Stroke enable",true);
-        strokeEnableCheck.addActionListener(e->strokeCheckChanged());
 
-        fillColorLabel = new JLabel("  ");
-        fillColorBtn = new JButton("Fill");
-        fillEnableCheck = new JCheckBox("Fill enable", true);
-        fillEnableCheck.addActionListener(e->fillCheckChanged());
+        colorLabel = new JLabel("  ");
+        colorBtn = new JButton("Stroke");
 
         JButton drawBtn = new JButton("Draw");
 
@@ -74,34 +62,24 @@ public class RectangleWindow extends JDialog {
         yPosLabel.setBounds(50, 50*3, 100, 50);
         yPosField.setBounds(150, 50*3, 250, 50);
 
-        widthLabel.setBounds(50, 50*4, 100, 50);
-        widthField.setBounds(150, 50*4 , 250, 50);
+        textLabel.setBounds(50, 50*4, 100, 50);
+        textField.setBounds(150, 50*4 , 250, 50);
 
-        heightLabel.setBounds(50, 50*5, 100, 50);
-        heightField.setBounds(150, 50*5 , 250, 50);
+        fontSizeLabel.setBounds(50, 50*5, 100, 50);
+        fontSizeField.setBounds(150, 50*5 , 250, 50);
 
-        colorBtn.setBounds(100, 50*6 + 20, 100, 50);
-        colorLabel.setBounds(200, 50*6 + 20, 125, 50);
-        strokeEnableCheck.setBounds(350, 50*6+25, 150, 50);
-
-        fillColorBtn.setBounds(100, 50*7 + 20, 100, 50);
-        fillColorLabel.setBounds(200, 50*7 + 20, 125, 50);
-        fillEnableCheck.setBounds(350, 50*7+25, 150, 50);
+        colorBtn.setBounds(150, 50*6 + 20, 100, 50);
+        colorLabel.setBounds(260, 50*6 + 20, 125, 50);
 
         drawBtn.setBounds(225,50*8 + 50,100,50);
 
         colorBtn.setFocusable(false);
         colorBtn.addActionListener(e -> setColor());
-        fillColorBtn.setFocusable(false);
-        fillColorBtn.addActionListener(e -> setFillColor());
 
         drawBtn.setFocusable(false);
         drawBtn.addActionListener(actionEvent -> draw());
         colorLabel.setOpaque(true);
         colorLabel.setBackground(Color.BLACK);
-
-        fillColorLabel.setOpaque(true);
-        fillColorLabel.setBackground(Color.BLACK);
 
         this.add(shapeNameLabel);
         this.add(nameField);
@@ -109,16 +87,12 @@ public class RectangleWindow extends JDialog {
         this.add(xPosField);
         this.add(yPosLabel);
         this.add(yPosField);
-        this.add(widthLabel);
-        this.add(widthField);
-        this.add(heightLabel);
-        this.add(heightField);
+        this.add(textLabel);
+        this.add(textField);
+        this.add(fontSizeLabel);
+        this.add(fontSizeField);
         this.add(colorLabel);
         this.add(colorBtn);
-        this.add(fillColorLabel);
-        this.add(fillColorBtn);
-        this.add(strokeEnableCheck);
-        this.add(fillEnableCheck);
         this.add(drawBtn);
         this.getRootPane().setDefaultButton(drawBtn);
 
@@ -132,34 +106,21 @@ public class RectangleWindow extends JDialog {
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
         if (color == null) return;
         colorLabel.setBackground(color);
-        rectangle.setColor(color);
-    }
-
-    public void setFillColor(){
-        Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
-        if (color == null) return;
-        fillColorLabel.setBackground(color);
-        rectangle.setFillColor(color);
+        textShape.setColor(color);
     }
 
     public void draw() {
-        int x, y;
-        int width, height;
-        boolean stroke, fill;
         try {
+            int x, y, textSize;
+            String text;
+
             x = Integer.parseInt(xPosField.getText().trim());
             y = Integer.parseInt(yPosField.getText().trim());
-            width = Integer.parseInt(widthField.getText().trim());
-            height = Integer.parseInt(heightField.getText().trim());
-            stroke = strokeEnableCheck.isSelected();
-            fill = fillEnableCheck.isSelected();
+            textSize = Integer.parseInt(fontSizeField.getText().trim());
+            text = textField.getText();
 
-            if (!(fill || stroke)) {
-                JOptionPane.showMessageDialog(null, "Requered At least one check ",
-                        "Invalid data!",
-                        JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+            if (textField.getText().equals(""))
+                throw new NumberFormatException();
 
             if (nameField.getText().trim().equals(""))
                 throw new NumberFormatException();
@@ -168,13 +129,11 @@ public class RectangleWindow extends JDialog {
 
             Map<String, String> p = new HashMap<>();
             p.put(NAME_KEY, nameField.getText());
-            p.put(SET_BORDER_KEY, String.valueOf(stroke));
-            p.put(SET_FILL_KEY, String.valueOf(fill));
-            rectangle.setProperties(p);
-            rectangle.setPosition(new Point(x, y));
-            rectangle.setWidth(width);
-            rectangle.setHeight(height);
-            engine.addShape(rectangle);
+            textShape.setProperties(p);
+            textShape.setPosition(new Point(x, y));
+            textShape.setText(text);
+            textShape.setTextSize(textSize);
+            engine.addShape(textShape);
 
             engine.refresh(null);
             this.dispose();
@@ -186,13 +145,6 @@ public class RectangleWindow extends JDialog {
             JOptionPane.showMessageDialog(null, "Name is already been used", "Invalid name!",
                     JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    private void strokeCheckChanged() {
-        colorBtn.setEnabled(strokeEnableCheck.isSelected());
-    }
-    private void fillCheckChanged() {
-        fillColorBtn.setEnabled(fillEnableCheck.isSelected());
     }
 }
 
