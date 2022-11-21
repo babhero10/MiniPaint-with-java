@@ -2,37 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72d93e62-245f-4ba8-b862-6b85f01e3cc9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/backend/constants/Properties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backend/drawableshapes/TextShape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backend/struct/NormalShape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backend/struct/OtherShape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/TextDrawWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/Engine$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/constants/FileConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/constants/FileConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Circle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Circle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/LineSegment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/LineSegment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Rectangle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Rectangle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/struct/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/struct/Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/CircleWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/CircleWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/RectangleWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/RectangleWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/SquareWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/windows/shapeswindow/SquareWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/constants/FileConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/constants/FileConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/Circle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/LineSegment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/LineSegment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/Rectangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/struct/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/struct/Shape.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/MainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/MainFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/CircleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/CircleWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/RectangleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/RectangleWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/SquareWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/SquareWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

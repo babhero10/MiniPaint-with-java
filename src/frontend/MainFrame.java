@@ -28,6 +28,7 @@ public class MainFrame {
     public JPanel drawingPanel;
     private JButton renameBtn;
     private JButton textDrawBtn;
+    private JLabel drawerSizeLabel;
     public static JFrame frame;
 
     public MainFrame() {
@@ -105,7 +106,7 @@ public class MainFrame {
             @Override
             public void windowActivated(WindowEvent e) {
                 super.windowActivated(e);
-
+                drawerSizeLabel.setText(drawingPanel.getWidth() + ", " + drawingPanel.getHeight());
                 frame.setTitle(((Engine)drawingPanel).getDrawingTitle());
             }
         });
