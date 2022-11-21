@@ -1,8 +1,9 @@
-package frontend;
+package frontend.windows.shapeswindow;
 
 
 import backend.drawableshapes.LineSegment;
-import backend.errors.InvalidName;
+import backend.exception.InvalidName;
+import backend.Engine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,6 +98,7 @@ public class LineSegmentWindow extends JDialog {
 
     public void setColor(){
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
+        if (color == null) return;
         colorLabel.setBackground(color);
         lineSegment.setColor(color);
     }
@@ -106,10 +108,10 @@ public class LineSegmentWindow extends JDialog {
         int xTo, yTo;
 
         try {
-            x = Integer.parseInt(xPosField.getText());
-            y = Integer.parseInt(yPosField.getText());
-            xTo = Integer.parseInt(xPosToField.getText());
-            yTo = Integer.parseInt(yPosToField.getText());
+            x = Integer.parseInt(xPosField.getText().trim());
+            y = Integer.parseInt(yPosField.getText().trim());
+            xTo = Integer.parseInt(xPosToField.getText().trim());
+            yTo = Integer.parseInt(yPosToField.getText().trim());
 
             if (nameField.getText().trim().equals(""))
                 throw new NumberFormatException();
@@ -123,7 +125,7 @@ public class LineSegmentWindow extends JDialog {
             lineSegment.setEndPoint(new Point(xTo, yTo));
             engine.addShape(lineSegment);
 
-            engine.refresh(engine.getGraphics());
+            engine.refresh(null);
             this.dispose();
 
         } catch (NumberFormatException e) {

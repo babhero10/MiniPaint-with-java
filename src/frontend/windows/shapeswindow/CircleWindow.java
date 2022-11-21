@@ -1,13 +1,16 @@
-package frontend;
+package frontend.windows.shapeswindow;
 
 
 import backend.drawableshapes.Circle;
-import backend.errors.InvalidName;
+import backend.exception.InvalidName;
+import backend.Engine;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static backend.struct.Shape.*;
 
 public class CircleWindow extends JDialog {
 
@@ -17,6 +20,10 @@ public class CircleWindow extends JDialog {
     private final Circle circle;
 
     private final JLabel colorLabel, fillColorLabel;
+
+    private final JCheckBox strokeEnableCheck, fillEnableCheck;
+
+    JButton fillColorBtn, colorBtn;
 
     public CircleWindow(JFrame parent, Engine engine) {
         super(parent, "Circle probleties", Dialog.ModalityType.DOCUMENT_MODAL);
@@ -39,10 +46,14 @@ public class CircleWindow extends JDialog {
         radiusField = new JTextField();
 
         colorLabel = new JLabel("  ");
-        JButton colorBtn = new JButton("Stroke");
+        colorBtn = new JButton("Stroke");
+        strokeEnableCheck = new JCheckBox("Stroke enable",true);
+        strokeEnableCheck.addActionListener(e->strokeCheckChanged());
 
         fillColorLabel = new JLabel("  ");
-        JButton fillColorBtn = new JButton("Fill");
+        fillColorBtn = new JButton("Fill");
+        fillEnableCheck = new JCheckBox("Fill enable", true);
+        fillEnableCheck.addActionListener(e->fillCheckChanged());
 
         JButton drawBtn = new JButton("Draw");
 
@@ -58,10 +69,13 @@ public class CircleWindow extends JDialog {
         radiusLabel.setBounds(50, 50*4, 100, 50);
         radiusField.setBounds(150, 50*4 , 250, 50);
 
-        colorBtn.setBounds(150, 50*5 + 20, 100, 50);
-        colorLabel.setBounds(260, 50*5 + 20, 125, 50);
-        fillColorBtn.setBounds(150, 50*6 + 20, 100, 50);
-        fillColorLabel.setBounds(260, 50*6 + 20, 125, 50);
+        colorBtn.setBounds(100, 50*5 + 20, 100, 50);
+        colorLabel.setBounds(200, 50*5 + 20, 125, 50);
+        strokeEnableCheck.setBounds(350, 50*5+25, 150, 50);
+
+        fillColorBtn.setBounds(100, 50*6 + 20, 100, 50);
+        fillColorLabel.setBounds(200, 50*6 + 20, 125, 50);
+        fillEnableCheck.setBounds(350, 50*6+25, 150, 50);
 
         drawBtn.setBounds(225,50*8,100,50);
 
@@ -90,6 +104,8 @@ public class CircleWindow extends JDialog {
         this.add(colorBtn);
         this.add(fillColorLabel);
         this.add(fillColorBtn);
+        this.add(strokeEnableCheck);
+        this.add(fillEnableCheck);
         this.add(drawBtn);
         this.getRootPane().setDefaultButton(drawBtn);
 
@@ -101,23 +117,34 @@ public class CircleWindow extends JDialog {
 
     public void setColor(){
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
+        if (color == null) return;
         colorLabel.setBackground(color);
         circle.setColor(color);
     }
 
     public void setFillColor(){
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
+        if (color == null) return;
         fillColorLabel.setBackground(color);
         circle.setFillColor(color);
     }
 
     public void draw() {
         int x, y, radius;
-
+        boolean stroke, fill;
         try {
-            x = Integer.parseInt(xPosField.getText());
-            y = Integer.parseInt(yPosField.getText());
-            radius = Integer.parseInt(radiusField.getText());
+            x = Integer.parseInt(xPosField.getText().trim());
+            y = Integer.parseInt(yPosField.getText().trim());
+            radius = Integer.parseInt(radiusField.getText().trim());
+            stroke = strokeEnableCheck.isSelected();
+            fill = fillEnableCheck.isSelected();
+
+            if (!(fill || stroke)) {
+                JOptionPane.showMessageDialog(null, "Requered At least one check ",
+                        "Invalid data!",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             if (nameField.getText().trim().equals(""))
                 throw new NumberFormatException();
@@ -125,22 +152,32 @@ public class CircleWindow extends JDialog {
             engine.checkShapeName(nameField.getText());
 
             Map<String, String> p = new HashMap<>();
-            p.put("name", nameField.getText());
+            p.put(NAME_KEY, nameField.getText());
+            p.put(SET_BORDER_KEY, Boolean.toString(stroke));
+            p.put(SET_FILL_KEY, String.valueOf(fill));
             circle.setProperties(p);
             circle.setPosition(new Point(x, y));
             circle.setRadius(radius);
             engine.addShape(circle);
-            engine.refresh(engine.getGraphics());
+            engine.refresh(null);
             this.dispose();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid data", "Failed!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid data", "Failed!",
+                    JOptionPane.WARNING_MESSAGE);
         } catch (InvalidName e) {
-            JOptionPane.showMessageDialog(null, "Name is already been used", "Invalid name!",
+            JOptionPane.showMessageDialog(null, "Name is already been used",
+                    "Invalid name!",
                     JOptionPane.WARNING_MESSAGE);
         }
     }
 
+    private void strokeCheckChanged() {
+        colorBtn.setEnabled(strokeEnableCheck.isSelected());
+    }
+    private void fillCheckChanged() {
+        fillColorBtn.setEnabled(fillEnableCheck.isSelected());
+    }
 }
 
 

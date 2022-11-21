@@ -1,13 +1,16 @@
-package frontend;
+package frontend.windows.shapeswindow;
 
 
 import backend.drawableshapes.Rectangle;
-import backend.errors.InvalidName;
+import backend.exception.InvalidName;
+import backend.Engine;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static backend.struct.Shape.*;
 
 public class RectangleWindow extends JDialog {
 
@@ -16,7 +19,10 @@ public class RectangleWindow extends JDialog {
 
     private final Rectangle rectangle;
 
-    private final JLabel colorLabel, fillColorLabel;
+    private final JCheckBox strokeEnableCheck, fillEnableCheck;
+
+    JLabel fillColorLabel, colorLabel;
+    JButton fillColorBtn, colorBtn;
 
     public RectangleWindow(JFrame parent, Engine engine) {
         super(parent, "Rectangle probleties", ModalityType.DOCUMENT_MODAL);
@@ -42,10 +48,20 @@ public class RectangleWindow extends JDialog {
         heightField = new JTextField();
 
         colorLabel = new JLabel("  ");
-        JButton colorBtn = new JButton("Stroke");
+        colorBtn = new JButton("Stroke");
 
         fillColorLabel = new JLabel("  ");
-        JButton fillColorBtn = new JButton("Fill");
+        fillColorBtn = new JButton("Fill");
+
+        colorLabel = new JLabel("  ");
+        colorBtn = new JButton("Stroke");
+        strokeEnableCheck = new JCheckBox("Stroke enable",true);
+        strokeEnableCheck.addActionListener(e->strokeCheckChanged());
+
+        fillColorLabel = new JLabel("  ");
+        fillColorBtn = new JButton("Fill");
+        fillEnableCheck = new JCheckBox("Fill enable", true);
+        fillEnableCheck.addActionListener(e->fillCheckChanged());
 
         JButton drawBtn = new JButton("Draw");
 
@@ -64,11 +80,13 @@ public class RectangleWindow extends JDialog {
         heightLabel.setBounds(50, 50*5, 100, 50);
         heightField.setBounds(150, 50*5 , 250, 50);
 
-        colorBtn.setBounds(150, 50*6 + 20, 100, 50);
-        colorLabel.setBounds(260, 50*6 + 20, 125, 50);
+        colorBtn.setBounds(100, 50*6 + 20, 100, 50);
+        colorLabel.setBounds(200, 50*6 + 20, 125, 50);
+        strokeEnableCheck.setBounds(350, 50*6+25, 150, 50);
 
-        fillColorBtn.setBounds(150, 50*7 + 20, 100, 50);
-        fillColorLabel.setBounds(260, 50*7 + 20, 125, 50);
+        fillColorBtn.setBounds(100, 50*7 + 20, 100, 50);
+        fillColorLabel.setBounds(200, 50*7 + 20, 125, 50);
+        fillEnableCheck.setBounds(350, 50*7+25, 150, 50);
 
         drawBtn.setBounds(225,50*8 + 50,100,50);
 
@@ -99,6 +117,8 @@ public class RectangleWindow extends JDialog {
         this.add(colorBtn);
         this.add(fillColorLabel);
         this.add(fillColorBtn);
+        this.add(strokeEnableCheck);
+        this.add(fillEnableCheck);
         this.add(drawBtn);
         this.getRootPane().setDefaultButton(drawBtn);
 
@@ -110,12 +130,14 @@ public class RectangleWindow extends JDialog {
 
     public void setColor(){
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
+        if (color == null) return;
         colorLabel.setBackground(color);
         rectangle.setColor(color);
     }
 
     public void setFillColor(){
         Color color = JColorChooser.showDialog(this, "Pick a color", Color.BLACK);
+        if (color == null) return;
         fillColorLabel.setBackground(color);
         rectangle.setFillColor(color);
     }
@@ -123,12 +145,21 @@ public class RectangleWindow extends JDialog {
     public void draw() {
         int x, y;
         int width, height;
-
+        boolean stroke, fill;
         try {
-            x = Integer.parseInt(xPosField.getText());
-            y = Integer.parseInt(yPosField.getText());
-            width = Integer.parseInt(widthField.getText());
-            height = Integer.parseInt(heightField.getText());
+            x = Integer.parseInt(xPosField.getText().trim());
+            y = Integer.parseInt(yPosField.getText().trim());
+            width = Integer.parseInt(widthField.getText().trim());
+            height = Integer.parseInt(heightField.getText().trim());
+            stroke = strokeEnableCheck.isSelected();
+            fill = fillEnableCheck.isSelected();
+
+            if (!(fill || stroke)) {
+                JOptionPane.showMessageDialog(null, "Requered At least one check ",
+                        "Invalid data!",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             if (nameField.getText().trim().equals(""))
                 throw new NumberFormatException();
@@ -136,14 +167,16 @@ public class RectangleWindow extends JDialog {
             engine.checkShapeName(nameField.getText());
 
             Map<String, String> p = new HashMap<>();
-            p.put("name", nameField.getText());
+            p.put(NAME_KEY, nameField.getText());
+            p.put(SET_BORDER_KEY, String.valueOf(stroke));
+            p.put(SET_FILL_KEY, String.valueOf(fill));
             rectangle.setProperties(p);
             rectangle.setPosition(new Point(x, y));
             rectangle.setWidth(width);
             rectangle.setHeight(height);
             engine.addShape(rectangle);
 
-            engine.refresh(engine.getGraphics());
+            engine.refresh(null);
             this.dispose();
 
         } catch (NumberFormatException e) {
@@ -155,6 +188,12 @@ public class RectangleWindow extends JDialog {
         }
     }
 
+    private void strokeCheckChanged() {
+        colorBtn.setEnabled(strokeEnableCheck.isSelected());
+    }
+    private void fillCheckChanged() {
+        fillColorBtn.setEnabled(fillEnableCheck.isSelected());
+    }
 }
 
 

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="72d93e62-245f-4ba8-b862-6b85f01e3cc9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/backend/Engine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backend/constants/FileConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backend/struct/Pair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/windows/customizing/ChangeColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/windows/customizing/RenameWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UML/useCaseCompany.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/UML/useCaseCompany.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Circle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Circle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/LineSegment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/LineSegment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Rectangle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/drawableshapes/Rectangle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/errors/InvalidName.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/backend/struct/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/backend/struct/Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/ChangeColor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/CircleWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/Engine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/LineSegmentWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab7/frontend/MainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/RectangleWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab7/frontend/SquareWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/Circle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/LineSegment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/LineSegment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/drawableshapes/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/drawableshapes/Rectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/errors/InvalidName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/exception/InvalidName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/struct/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/struct/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/ChangeColor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/CircleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/CircleWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/Engine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/LineSegmentWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/LineSegmentWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/MainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/MainFrame.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/RectangleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/RectangleWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/SquareWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/windows/shapeswindow/SquareWindow.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Hq9QDfJ73HgFRqBc9mKk3JU2Jq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="frontend.MainFrame" />
+      <module name="Lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="frontend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainFrame" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="72d93e62-245f-4ba8-b862-6b85f01e3cc9" name="Changes" comment="" />
+      <created>1669001736285</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669001736285</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

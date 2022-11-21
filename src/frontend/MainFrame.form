@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="frontend.MainFrame">
   <grid id="27dc6" binding="main_panel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="708" height="400"/>
+      <xy x="20" y="20" width="723" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -18,7 +18,9 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <model/>
+              <model>
+                <item value="Choose Shape"/>
+              </model>
             </properties>
           </component>
           <grid id="8a0b0" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -64,6 +66,15 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
           </hspacer>
+          <component id="707e7" class="javax.swing.JButton" binding="renameBtn">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Rename"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="fd31f" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -120,8 +131,12 @@
                     <constraints border-constraint="Center"/>
                     <properties>
                       <background color="-1180929"/>
+                      <enabled value="true"/>
                       <focusable value="false"/>
                     </properties>
+                    <clientProperties>
+                      <html.disable class="java.lang.Boolean" value="false"/>
+                    </clientProperties>
                     <border type="none"/>
                     <children/>
                   </grid>
